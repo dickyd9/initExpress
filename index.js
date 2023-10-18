@@ -1,3 +1,5 @@
+"use strict"
+
 const express = require("express")
 const serverless = require("serverless-http")
 
@@ -16,5 +18,5 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
 
-module.exports = app;
+module.exports = app
 module.exports.handler = serverless(app)
