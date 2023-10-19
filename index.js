@@ -1,22 +1,15 @@
 "use strict"
 
-const express = require("express")
-const serverless = require("serverless-http")
+const ExpressConfig = require("./express-config")
+const route = require("./src/routing/router")
 
-const app = express()
-const port = 3000
+const app = ExpressConfig()
+const PORT = process.env.PORT || 5000
 
-const router = express.Router()
+app.use("/v1", route)
 
-router.get("/", (req, res) => {
-  res.send("Hello World!")
-})
-
-app.use("/api/", router)
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`Example app listening at ${PORT}`)
 })
 
 module.exports = app
-module.exports.handler = serverless(app)
