@@ -28,7 +28,12 @@ exports.newUser = asyncHandler(async (createUser) => {
 
 exports.userProfile = asyncHandler(async (req) => {
   return new Promise((resolve, reject) => {
-    const data = req.body.user
+    const user = req.body.user
+    const data = User.findByPk(user.userId, {
+      attributes: {
+        exclude: ["password", "auth_token", "email_verification_token"],
+      },
+    })
     resolve(data)
   })
 })

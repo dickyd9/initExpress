@@ -12,7 +12,6 @@ exports.getProduct = asyncHandler(async (req) => {
 exports.createProduct = asyncHandler(async (createProduct) => {
   try {
     const { file, body } = await createProduct
-    console.log(file)
 
     const originPath = "/assets/images/" + file?.filename
     const data = {
@@ -31,4 +30,16 @@ exports.createProduct = asyncHandler(async (createProduct) => {
       resolve(data)
     })
   } catch (error) {}
+})
+
+exports.deleteProduct = asyncHandler(async (id) => {
+  await Product.destroy({
+    where: {
+      id: id,
+    },
+  })
+  return new Promise((resolve, reject) => {
+    const data = { message: "Data deleted!" }
+    resolve(data)
+  })
 })

@@ -12,6 +12,7 @@ router.post(
 )
 // router.get("/product", checkJwt, ProductController.getProductData)
 router.get("/product", ProductController.getProduct)
+router.delete("/product/:id", ProductController.deleteProduct)
 // router.put("/product", ProductController.updateProduct)
 
 module.exports = router
