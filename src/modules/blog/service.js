@@ -16,10 +16,21 @@ exports.getBlog = asyncHandler(async (req) => {
   return Inteceptor.response(Blog, req, message)
 })
 
+exports.getRecentBlog = asyncHandler(async () => {
+  const blogs = await Blog.findAll({
+    order: [["createdAt", "DESC"]],
+    limit: 3,
+  })
+  return new Promise((resolve, reject) => {
+    const data = blogs
+    resolve(data)
+  })
+})
+
 exports.addBlog = asyncHandler(async (req) => {
   const { file, body } = await req
   console.log(body)
-  const originPath = "/assets/images/blog/" + file?.filename
+  const originPath = "/assets/images/" + file?.filename
   const data = {
     blogImage: originPath || "",
     blogTitle: body.blogTitle,

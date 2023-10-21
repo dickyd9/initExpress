@@ -12,8 +12,9 @@ exports.getProduct = asyncHandler(async (req) => {
 exports.createProduct = asyncHandler(async (createProduct) => {
   try {
     const { file, body } = await createProduct
+    console.log(file)
 
-    const originPath = "/assets/images/product/" + file?.filename
+    const originPath = "/assets/images/" + file?.filename
     const data = {
       productImage: originPath || "",
       productName: body.productName,

@@ -11,5 +11,6 @@ router.post(
 )
 router.get("/blog", BlogController.getBlog)
 router.get("/blog/:id", BlogController.getBlogDetail)
+router.get("/recent-blog", BlogController.getRecentBlog)
 
 module.exports = router

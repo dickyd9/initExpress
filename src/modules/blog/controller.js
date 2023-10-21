@@ -22,6 +22,18 @@ exports.getBlogDetail = asyncHandler(async (req, res) => {
   }
 })
 
+exports.getRecentBlog = asyncHandler(async (req, res) => {
+  try {
+    const data = await BlogService.getRecentBlog(req)
+    res.json(data)
+  } catch (error) {
+    console.error("Terjadi kesalahan:", error)
+    res
+      .status(500)
+      .json({ error: "Terjadi kesalahan dalam mengambil data bisnis" })
+  }
+})
+
 exports.addBlog = asyncHandler(async (req, res) => {
   try {
     const data = await BlogService.addBlog(req)
