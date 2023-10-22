@@ -1,8 +1,9 @@
 class Inteceptor {
-  async response(model, req, message) {
+  async response(model, req, message, query) {
     const page = parseInt(req.query.page, 10) || 1
     const limit = parseInt(req.query.limit, 10) || 10
     const offset = (page - 1) * limit
+    const filter = { ...query };
 
     if (req.route.path === "/user-list") {
       const datas = await model.findAll({
@@ -33,8 +34,9 @@ class Inteceptor {
         resolve(data)
       })
     }
-    
+
     const datas = await model.findAll({
+      where: filter,
       limit: limit,
       offset: offset,
     })

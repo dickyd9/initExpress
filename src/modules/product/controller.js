@@ -21,6 +21,16 @@ exports.addProduct = asyncHandler(async (req, res) => {
   }
 })
 
+exports.editProduct = asyncHandler(async (req, res) => {
+  try {
+    const data = await ProductService.editProduct(req)
+    res.json(data)
+  } catch (error) {
+    console.error("Terjadi kesalahan:", error)
+    res.status(500).json({ error })
+  }
+})
+
 exports.deleteProduct = asyncHandler(async (req, res) => {
   try {
     const data = await ProductService.deleteProduct(req.params.id)

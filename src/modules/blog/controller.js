@@ -22,6 +22,16 @@ exports.getBlogDetail = asyncHandler(async (req, res) => {
   }
 })
 
+exports.DeleteBlog = asyncHandler(async (req, res) => {
+  try {
+    const data = await BlogService.deleteBlog(req.params.id)
+    res.json(data)
+  } catch (error) {
+    console.error("Terjadi kesalahan:", error)
+    res.status(500).json({ error })
+  }
+})
+
 exports.getRecentBlog = asyncHandler(async (req, res) => {
   try {
     const data = await BlogService.getRecentBlog(req)
@@ -37,6 +47,16 @@ exports.getRecentBlog = asyncHandler(async (req, res) => {
 exports.addBlog = asyncHandler(async (req, res) => {
   try {
     const data = await BlogService.addBlog(req)
+    res.json(data)
+  } catch (error) {
+    console.error("Terjadi kesalahan:", error)
+    res.status(500).json({ error })
+  }
+})
+
+exports.editBlog = asyncHandler(async (req, res) => {
+  try {
+    const data = await BlogService.editBlog(req)
     res.json(data)
   } catch (error) {
     console.error("Terjadi kesalahan:", error)

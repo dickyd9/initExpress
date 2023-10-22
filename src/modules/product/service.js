@@ -6,12 +6,13 @@ const Product = db.product
 
 exports.getProduct = asyncHandler(async (req) => {
   const message = "Success get data!"
-  return Inteceptor.response(Product, req, message)
+  const param = {}
+  return Inteceptor.response(Product, req, message, param)
 })
 
-exports.createProduct = asyncHandler(async (createProduct) => {
+exports.createProduct = asyncHandler(async (req) => {
   try {
-    const { file, body } = await createProduct
+    const { file, body } = await req
 
     const originPath = "/assets/images/" + file?.filename
     const data = {
@@ -25,6 +26,31 @@ exports.createProduct = asyncHandler(async (createProduct) => {
     return new Promise((resolve, reject) => {
       const data = {
         message: "Success add product",
+        data: products,
+      }
+      resolve(data)
+    })
+  } catch (error) {}
+})
+
+exports.editProduct = asyncHandler(async (createProduct) => {
+  try {
+    const { file, body } = await createProduct
+
+    const originPath = "/assets/images/" + file?.filename
+    const data = {
+      productImage: originPath || "",
+      productName: body.productName,
+      productPrice: body.productPrice,
+      productLink: body.productLink,
+    }
+
+    const products = await Product.update(data, {
+      where: { id: createProduct.params.id },
+    })
+    return new Promise((resolve, reject) => {
+      const data = {
+        message: "Success update product",
         data: products,
       }
       resolve(data)
