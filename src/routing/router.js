@@ -5,16 +5,16 @@ const auth = require("./auth.route")
 const user = require("./user.route")
 const product = require("./product.route")
 const blog = require("./blog.route")
+const gallery = require("./gallery.route")
 // const testimoni = require("./testimoni/testi.routing")
 // const kemitraan = require("./kemitraan/kemitraan.routing")
-// const gallery = require("./gallery/gallery.routing")
 
 router.use(auth)
 router.use(user)
 router.use(product)
 router.use(blog)
+router.use(gallery)
 // router.use(testimoni)
 // router.use(kemitraan)
-// router.use(gallery)
 
 module.exports = router

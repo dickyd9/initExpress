@@ -15,7 +15,7 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
       },
       path: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       link: {
