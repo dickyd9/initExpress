@@ -46,7 +46,7 @@ exports.getRecentBlog = asyncHandler(async (req, res) => {
 
 exports.addBlog = asyncHandler(async (req, res) => {
   try {
-    const data = await BlogService.addBlog(req)
+    const data = await BlogService.addBlog(req, res)
     res.json(data)
   } catch (error) {
     console.error("Terjadi kesalahan:", error)
@@ -56,7 +56,7 @@ exports.addBlog = asyncHandler(async (req, res) => {
 
 exports.editBlog = asyncHandler(async (req, res) => {
   try {
-    const data = await BlogService.editBlog(req)
+    const data = await BlogService.editBlog(req, res)
     res.json(data)
   } catch (error) {
     console.error("Terjadi kesalahan:", error)

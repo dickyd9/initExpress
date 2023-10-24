@@ -42,43 +42,55 @@ exports.getRecentBlog = asyncHandler(async () => {
   })
 })
 
-exports.addBlog = asyncHandler(async (req) => {
-  const { file, body } = await req
-  const originPath = "/assets/images/" + file?.filename
-  const data = {
-    blogImage: originPath || "",
-    blogTitle: body.blogTitle,
-    blogDesc: body.blogDesc,
-    blogStatus: body.blogStatus,
-  }
-  const blogs = await Blog.create(data)
-  return new Promise((resolve, reject) => {
-    const data = {
-      message: "Success add blog",
-      data: blogs,
+exports.addBlog = asyncHandler(async (req, res) => {
+  try {
+    const { file, body } = await req
+
+    if (body.blogTitle.length > 100) {
+      res.status(400).json({ status: 400, error: "Minimal 100 Character" })
+    } else {
+      const originPath = "/assets/images/" + file?.filename
+      const data = {
+        blogImage: originPath || "",
+        blogTitle: body.blogTitle,
+        blogDesc: body.blogDesc,
+        blogStatus: body.blogStatus,
+      }
+      const blogs = await Blog.create(data)
+      return new Promise((resolve, reject) => {
+        const data = {
+          message: "Success add blog",
+          data: blogs,
+        }
+        resolve(data)
+      })
     }
-    resolve(data)
-  })
+  } catch (error) {}
 })
 
-exports.editBlog = asyncHandler(async (req) => {
+exports.editBlog = asyncHandler(async (req, res) => {
   const { file, body } = await req
-  console.log(body)
   const originPath = "/assets/images/" + file?.filename
-  const data = {
-    blogImage: originPath || "",
-    blogTitle: body.blogTitle,
-    blogDesc: body.blogDesc,
-    blogStatus: body.blogStatus,
-  }
-  const blogs = await Blog.update(data, { where: { id: req.params.id } })
-  return new Promise((resolve, reject) => {
+
+  if (body.blogTitle.length > 100) {
+    res.status(400).json({ status: 400, error: "Minimal 100 Character" })
+  } else {
     const data = {
-      message: "Success update blog",
-      data: blogs,
+      blogImage: originPath || "",
+      blogTitle: body.blogTitle,
+      blogDesc: body.blogDesc,
+      blogStatus: body.blogStatus,
     }
-    resolve(data)
-  })
+
+    const blogs = await Blog.update(data, { where: { id: req.params.id } })
+    return new Promise((resolve, reject) => {
+      const data = {
+        message: "Success update blog",
+        data: blogs,
+      }
+      resolve(data)
+    })
+  }
 })
 
 exports.deleteBlog = asyncHandler(async (id) => {
