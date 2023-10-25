@@ -12,6 +12,7 @@ exports.addImage = asyncHandler(async (req) => {
       path: originPath || "",
       title: body.title,
       link: body.link,
+      size: body.size,
     }
 
     const products = await Gallery.create(data)
@@ -40,6 +41,7 @@ exports.editImage = asyncHandler(async (req) => {
       path: originPath || "",
       title: body.title,
       link: body.link,
+      size: body.size,
     }
 
     const products = await Gallery.update(data, {

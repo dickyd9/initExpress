@@ -22,6 +22,10 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.TEXT,
         allowNull: false,
       },
+      size: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
@@ -43,3 +47,5 @@ module.exports = function (sequelize, DataTypes) {
 
   return Gallery
 }
+
+// npx sequelize-cli db:migrate
