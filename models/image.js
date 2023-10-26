@@ -1,8 +1,8 @@
 "use strict"
 
 module.exports = function (sequelize, DataTypes) {
-  const Gallery = sequelize.define(
-    "gallery",
+  const Images = sequelize.define(
+    "images",
     {
       id: {
         allowNull: false,
@@ -10,15 +10,7 @@ module.exports = function (sequelize, DataTypes) {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       path: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
-      link: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
@@ -41,7 +33,5 @@ module.exports = function (sequelize, DataTypes) {
     }
   )
 
-  return Gallery
+  return Images
 }
-
-// npx sequelize-cli db:migrate

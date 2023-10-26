@@ -1,9 +1,9 @@
 "use strict"
 
-module.exports = function (sequelize, DataTypes) {
-  const Gallery = sequelize.define(
-    "gallery",
-    {
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up(queryInterface, DataTypes) {
+    return await queryInterface.createTable("images", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -18,10 +18,6 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      link: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
@@ -33,15 +29,15 @@ module.exports = function (sequelize, DataTypes) {
       deletedAt: {
         type: DataTypes.DATE,
       },
-    },
-    {
-      timestamps: true,
-      paranoid: true,
-      freezeTableName: true,
-    }
-  )
+    })
+  },
 
-  return Gallery
+  async down(queryInterface, DataTypes) {
+    /**
+     * Add reverting commands here.
+     *
+     * Example:
+     * await queryInterface.dropTable('users');
+     */
+  },
 }
-
-// npx sequelize-cli db:migrate

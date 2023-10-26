@@ -1,24 +1,21 @@
 const Inteceptor = require("../../common/middleware/response")
 const asyncHandler = require("express-async-handler")
 const db = require("../../../models")
-const Gallery = db.gallery
+const Images = db.images
 
 exports.addImage = asyncHandler(async (req) => {
   try {
     const { file, body } = await req
-
-    const originPath = "/assets/images/" + file?.filename
+    const originPath = "https://shoeslab.id" + "/assets/images/" + file?.filename
     const data = {
       path: originPath || "",
-      title: body.title,
-      link: body.link,
     }
 
-    const products = await Gallery.create(data)
+    const images = await Images.create(data)
     return new Promise((resolve, reject) => {
       const data = {
         message: "Success add image",
-        data: products,
+        data: images,
       }
       resolve(data)
     })
@@ -28,21 +25,19 @@ exports.addImage = asyncHandler(async (req) => {
 exports.getImage = asyncHandler(async (req) => {
   const message = "Success get data!"
   const param = {}
-  return Inteceptor.response(Gallery, req, message, param)
+  return Inteceptor.response(Images, req, message, param)
 })
 
 exports.editImage = asyncHandler(async (req) => {
   try {
     const { file, body } = await req
 
-    const originPath = "/assets/images/" + file?.filename
+    const originPath = "https://shoeslab.id" + "/assets/images/" + file?.filename
     const data = {
       path: originPath || "",
-      title: body.title,
-      link: body.link,
     }
 
-    const products = await Gallery.update(data, {
+    const products = await Images.update(data, {
       where: { id: req.params.id },
     })
     return new Promise((resolve, reject) => {
@@ -56,7 +51,7 @@ exports.editImage = asyncHandler(async (req) => {
 })
 
 exports.deleteImage = asyncHandler(async (id) => {
-  await Gallery.destroy({
+  await Images.destroy({
     where: {
       id: id,
     },
