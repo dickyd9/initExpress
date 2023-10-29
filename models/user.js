@@ -26,6 +26,11 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         unique: true,
       },
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -82,12 +87,6 @@ module.exports = function (sequelize, DataTypes) {
     {
       hooks: {
         beforeCreate: async (user) => {
-          if (user.password) {
-            const salt = await bcrypt.genSaltSync(10, "a")
-            user.password = bcrypt.hashSync(user.password, salt)
-          }
-        },
-        beforeUpdate: async (user) => {
           if (user.password) {
             const salt = await bcrypt.genSaltSync(10, "a")
             user.password = bcrypt.hashSync(user.password, salt)

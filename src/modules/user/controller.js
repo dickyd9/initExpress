@@ -31,3 +31,23 @@ exports.userProfile = asyncHandler(async (req, res) => {
     res.status(500).json({ error })
   }
 })
+
+exports.editUser = asyncHandler(async (req, res) => {
+  try {
+    const data = await UserService.editUser(req)
+    res.json(data)
+  } catch (error) {
+    console.error("Terjadi kesalahan:", error)
+    res.status(500).json({ error: "Terjadi kesalahan dalam server" })
+  }
+})
+
+exports.deleteUser = asyncHandler(async (req, res) => {
+  try {
+    const data = await UserService.deleteUser(req.params.id)
+    res.json(data)
+  } catch (error) {
+    console.error("Terjadi kesalahan:", error)
+    res.status(500).json({ error })
+  }
+})

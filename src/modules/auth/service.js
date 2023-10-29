@@ -11,18 +11,18 @@ dotenv.config()
 
 exports.login = asyncHandler(async (login, res) => {
   try {
-    let { email, password } = login
-    if (!(email && password)) {
+    let { username, password } = login
+    if (!(username && password)) {
       res.status(400).send()
     }
 
-    const user = await User.findOne({ where: { email: email } })
+    const user = await User.findOne({ where: { username: username } })
 
     if (user) {
       const password_valid = await bcrypt.compare(password, user.password)
       if (password_valid) {
         let secret = process.env.JWT_SECRET
-        const token = jwt.sign({ userId: user.id, email: user.email }, secret, {
+        const token = jwt.sign({ userId: user.id, username: user.username }, secret, {
           expiresIn: "10000",
         })
 

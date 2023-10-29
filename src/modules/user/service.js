@@ -37,3 +37,36 @@ exports.userProfile = asyncHandler(async (req) => {
     resolve(data)
   })
 })
+
+exports.editUser = asyncHandler(async (req) => {
+  const salt = bcrypt.genSaltSync(10, "a")
+  const hash = bcrypt.hashSync(req.body?.password, salt)
+
+  const editUser = {
+    ...req.body,
+    password: hash
+  }
+
+  const user = await User.update(editUser, {
+    where: { id: req.params.id },
+  })
+  return new Promise((resolve, reject) => {
+    const data = {
+      message: "Success edit user",
+      data: user,
+    }
+    resolve(data)
+  })
+})
+
+exports.deleteUser = asyncHandler(async (id) => {
+  await User.destroy({
+    where: {
+      id: id,
+    },
+  })
+  return new Promise((resolve, reject) => {
+    const data = { message: "Data deleted!" }
+    resolve(data)
+  })
+})

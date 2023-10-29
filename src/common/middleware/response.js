@@ -8,7 +8,9 @@ class Inteceptor {
     if (req.route.path === "/user-list") {
       const datas = await model.findAll({
         attributes: [
+          "id",
           "fullname",
+          "username",
           "address",
           "email",
           "is_email_verified",
